@@ -1,11 +1,22 @@
 {
+  "name": "authored-component-example",
+  "version": "1.0.0",
+  "runtime": "esm",
+  "entry": "dist/MyComponent.esm.js",
+  "css": [],
   "components": [
     {
       "name": "MyComponent",
-      "description": "Example tile for IoT dashboard",
-      "entry": "MyComponent",
-      "props": { "temperature": "number", "humidity": "number" },
-      "version": "1.0.0"
+      "export": "default",
+      "description": "DHT22 temperature/humidity tile",
+      "propsSchema": {
+        "type": "object",
+        "properties": {
+          "temperature": { "type": "number" },
+          "humidity": { "type": "number" }
+        },
+        "additionalProperties": true
+      }
     }
   ]
 }

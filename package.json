@@ -2,9 +2,8 @@
   "name": "authored-component-example",
   "version": "1.0.0",
   "description": "Example distributable React component for IoT Studio dashboards.",
-  "main": "dist/MyComponent.umd.js",
   "module": "dist/MyComponent.esm.js",
-  "files": ["dist", "exposes.json", "src"],
+  "files": ["dist", "exposes.json", "src", "README.md", "LICENSE"],
   "scripts": {
     "build": "rollup -c"
   },
