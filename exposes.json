@@ -1,0 +1,11 @@
+{
+  "components": [
+    {
+      "name": "MyComponent",
+      "description": "Example tile for IoT dashboard",
+      "entry": "MyComponent",
+      "props": { "temperature": "number", "humidity": "number" },
+      "version": "1.0.0"
+    }
+  ]
+}
