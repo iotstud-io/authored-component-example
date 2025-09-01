@@ -1,14 +1,14 @@
 {
   "name": "authored-component-example",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "runtime": "esm",
-  "entry": "dist/MyComponent.esm.js",
+  "entry": "MyComponent.esm.js",
   "css": [],
   "components": [
     {
       "name": "MyComponent",
       "export": "default",
-      "description": "DHT22 temperature/humidity tile",
+      "description": "DHT22 temperature/humidity component.",
       "propsSchema": {
         "type": "object",
         "properties": {
