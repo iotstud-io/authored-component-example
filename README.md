@@ -97,5 +97,7 @@ tar -czf dist-v0.0.1.tar.gz -C dist .
 ```
 - Use zip as a release in the repo (github example):
 ```bash
+git aa && git cm "Release v0.0.1" && git tag v0.0.1 && git push origin v0.0.1 && git push origin main
+
 gh release create v0.0.1 dist-v0.0.1.zip -t "v0.0.1" -n "First release of authored-component-example"
 ```
