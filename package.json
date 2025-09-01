@@ -1,9 +1,15 @@
 {
   "name": "authored-component-example",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Example distributable React component for IoT Studio dashboards.",
   "module": "dist/MyComponent.esm.js",
-  "files": ["dist", "exposes.json", "src", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "exposes.json",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rollup -c"
   },
@@ -12,14 +18,15 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "rollup": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "@babel/core": "^7.24.0",
-    "@babel/preset-react": "^7.24.0",
-    "@babel/preset-env": "^7.24.0"
+    "@babel/core": "7.28.3",
+    "@babel/preset-env": "7.28.3",
+    "@babel/preset-react": "7.27.1",
+    "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-commonjs": "28.0.6",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "rollup": "4.50.0",
+    "rollup-plugin-copy": "3.5.0"
   },
   "license": "MIT"
 }
