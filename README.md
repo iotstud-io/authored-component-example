@@ -12,7 +12,7 @@ This repo is a template for authors to create versioned, distributable React com
 
 1. Clone this repo:
 ```sh
-git clone https://github.com/techbykyle/authored-component-example.git
+git clone https://github.com/iotstud-io/authored-component-example.git
 cd authored-component-example
 ```
 
@@ -88,9 +88,14 @@ See `src/MyComponent.jsx` for a sample React component.
 - Use semantic versioning for releases.
 - Test your bundle with a simple HTML page using import maps.
 
-## Updating
+## Updating and releasing
 - Bump the version in `package.json` and `exposes.json`.
 - Build and release as above.
-
-## License
-MIT
+- Add contents of dist to a zip file:
+```bash
+tar -czf dist-v0.0.1.tar.gz -C dist .
+```
+- Use zip as a release in the repo (github example):
+```bash
+gh release create v0.0.1 dist-v0.0.1.zip -t "v0.0.1" -n "First release of authored-component-example"
+```
