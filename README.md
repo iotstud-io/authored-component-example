@@ -5,35 +5,60 @@ This repo is a template for authors to create versioned, distributable React com
 ## Goals
 - Build React components as distributable ESM bundles
 - Versioned releases for easy updates
-- Manifest (`exposes.json`) describing exported components and entry
+- Manifest (`exposes.json`) describing exported components, thier capabilities and settings.
 - Simple authoring and publishing workflow
 
 ## Quick Start
 
-1. Clone this repo:
+### 1. Fork this repo:
 ```sh
 git clone https://github.com/iotstud-io/authored-component-example.git
 cd authored-component-example
 ```
+- Create an empty repo on your GitHub (via UI or `gh repo create YOUR_REPO_NAME --private`)
+- Then mirror-push all refs to it
+`git push --mirror git@github.com:YOUR_GH_USERNAME/YOUR_NEW_REPO_NAME.git`
+- Now cleanup the bare clone
+```sh
+cd ..
+rm -rf authored-component-example
+```
+- Now work from your new independent repo and track it with `main` branch
+```sh
+git clone git@github.com:YOUR_GH_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME
+git push -u origin main
+```
 
-2. Install dependencies:
+### 2. Install dependencies:
 ```sh
 npm install
 ```
 
-3. Develop your component:
-- Edit `src/MyComponent.jsx` (or add more components)
-- Update `exposes.json` to describe your exports and entry point
+### 3. Develop your component:
+- Edit `src/GenericClimateSensor.jsx` (or add more components)
+- Change the name of the component to your liking and its export name in `rollup.config.js`
+- Once you've created your component(s) now you are ready to release
+- Bump the version in `package.json` and `exposes.json`.
+- Update `exposes.json` to describe your exports, your components capabilities and settings (more info on those coming soon).
+- Commit changes to GitHub `git add -A && git commit -m "My first authored component for IoT Studio" && git push origin main`
 
-4. Build:
+### 4. Build the bundle:
 ```sh
 npm run build
 ```
 - Output will be in `dist/` as ESM bundles
 
-5. Release:
-- Tag your release (e.g., `v1.0.0`)
-- Upload a zip containing: `dist/`, `exposes.json`, `README.md`, `LICENSE`
+### 5. Release:
+- Add contents of dist to a zip file:
+```bash
+tar -czf dist-v0.0.1.tar.gz -C dist .
+```
+- Use the zip as a release in the repo (github example):
+```bash
+gh release create v0.0.1 dist-v0.0.1.zip -t "v0.0.1" -n "First release of authored-component-example"
+```
+Or the equivalent with your preffered method of publishing releases. Make sure you tag with the same version as in `package.json` and `exposes.json`.
 
 ## Directory Structure
 ```
@@ -46,58 +71,12 @@ npm run build
   README.md
 ```
 
-## Example Component
-See `src/MyComponent.jsx` for a sample React component.
-
-## Manifest (`exposes.json`) — ESM schema
-```json
-{
-  "name": "authored-component-example",
-  "version": "1.0.0",
-  "runtime": "esm",
-  "entry": "dist/MyComponent.esm.js",
-  "css": [],
-  "components": [
-    {
-      "name": "MyComponent",
-      "export": "default",
-      "description": "DHT22 temperature/humidity tile",
-      "propsSchema": {
-        "type": "object",
-        "properties": {
-          "temperature": { "type": "number" },
-          "humidity": { "type": "number" }
-        },
-        "additionalProperties": true
-      }
-    }
-  ]
-}
-```
-
-## Rollup Build
-- ESM: `dist/MyComponent.esm.js`
-- React and JSX runtimes are externals; host provides them via import maps/shims.
-
 ## Authoring Guidelines
+- React and JSX runtimes are externals; host provides them via import maps/shims.
 - Export your component as default (or named) from your entry or component files.
-- Update `exposes.json` for each exported component and set `entry` to the ESM file.
+- Update `exposes.json` for each exported component.
 - Keep only the following bare imports unbundled (externals):
   - `react`, `react-dom/client`, `react/jsx-runtime`, `react/jsx-dev-runtime`
 - Bundle all other dependencies.
 - Use semantic versioning for releases.
 - Test your bundle with a simple HTML page using import maps.
-
-## Updating and releasing
-- Bump the version in `package.json` and `exposes.json`.
-- Build and release as above.
-- Add contents of dist to a zip file:
-```bash
-tar -czf dist-v0.0.1.tar.gz -C dist .
-```
-- Use zip as a release in the repo (github example):
-```bash
-git aa && git cm "Release v0.0.1" && git tag v0.0.1 && git push origin v0.0.1 && git push origin main
-
-gh release create v0.0.1 dist-v0.0.1.zip -t "v0.0.1" -n "First release of authored-component-example"
-```
