@@ -1,22 +1,31 @@
 {
-  "name": "authored-component-example",
-  "version": "0.0.1",
-  "runtime": "esm",
-  "entry": "MyComponent.esm.js",
-  "css": [],
-  "components": [
-    {
-      "name": "MyComponent",
-      "export": "default",
-      "description": "DHT22 temperature/humidity component.",
-      "propsSchema": {
-        "type": "object",
-        "properties": {
-          "temperature": { "type": "number" },
-          "humidity": { "type": "number" }
-        },
-        "additionalProperties": true
-      }
-    }
-  ]
+    "name": "authored-component-example",
+    "version": "0.0.1",
+    "css": [],
+    "components": [
+        {
+            "name": "GenericClimateSensor",
+            "export": "default",
+            "file": "dist/GenericClimateSensor.esm.js",
+            "description": "Generic temperature/humidity component. Device should provide temperature in Celsius or Fahrenheit, and humidity as percentage.",
+            "capabilities": {
+                "temp_c": "optional",
+                "temp_f": "optional",
+                "humidity": "optional"
+            },
+            "settings": [
+                {
+                    "name": "temperature_format",
+                    "type": "string",
+                    "label": "Temperature Format",
+                    "description": "Choose between Celsius and Fahrenheit.",
+                    "default": "c",
+                    "options": [
+                        { "value": "c", "label": "Celsius" },
+                        { "value": "f", "label": "Fahrenheit" }
+                    ]
+                }
+            ]
+        }
+    ]
 }

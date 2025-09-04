@@ -5,7 +5,7 @@ This repo is a template for authors to create versioned, distributable React com
 ## Goals
 - Build React components as distributable ESM bundles
 - Versioned releases for easy updates
-- Manifest (`exposes.json`) describing exported components, thier capabilities and settings.
+- Manifest (`exposes.json`) describing exported components, their capabilities and settings.
 - Simple authoring and publishing workflow
 
 ## Quick Start
@@ -56,15 +56,16 @@ tar -czf dist-v0.0.1.tar.gz -C dist .
 ```
 - Use the zip as a release in the repo (github example):
 ```bash
-gh release create v0.0.1 dist-v0.0.1.zip -t "v0.0.1" -n "First release of authored-component-example"
+gh release create v0.0.1 dist-v0.0.1.tar.gz -t "v0.0.1" -n "First release of authored-component-example"
 ```
-Or the equivalent with your preffered method of publishing releases. Make sure you tag with the same version as in `package.json` and `exposes.json`.
+Or the equivalent with your preferred method of publishing releases. Make sure you tag with the same version as in `package.json` and `exposes.json`.
 
 ## Directory Structure
 ```
 /
   src/
-    MyComponent.jsx
+    <ComponentName>.jsx
+    <OtherComponentName>.jsx
   exposes.json
   rollup.config.js
   package.json

@@ -2,7 +2,7 @@
   "name": "authored-component-example",
   "version": "0.0.1",
   "description": "Example distributable React component for IoT Studio dashboards.",
-  "module": "dist/MyComponent.esm.js",
+  "type": "module",
   "files": [
     "dist",
     "exposes.json",
