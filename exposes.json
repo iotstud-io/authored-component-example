@@ -5,8 +5,7 @@
     "components": [
         {
             "name": "GenericClimateSensor",
-            "export": "default",
-            "file": "dist/GenericClimateSensor.esm.js",
+            "defaultExport": true,
             "description": "Generic temperature/humidity component. Device should provide temperature in Celsius or Fahrenheit, and humidity as percentage.",
             "capabilities": {
                 "temp_c": "optional",
@@ -16,7 +15,6 @@
             "settings": [
                 {
                     "name": "temperature_format",
-                    "type": "string",
                     "label": "Temperature Format",
                     "description": "Choose between Celsius and Fahrenheit.",
                     "default": "c",
