@@ -1,6 +1,6 @@
 {
     "name": "authored-component-example",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "css": [],
     "components": [
         {
@@ -8,8 +8,8 @@
             "defaultExport": true,
             "description": "Generic temperature/humidity component. Device should provide temperature in Celsius or Fahrenheit, and humidity as percentage.",
             "capabilities": {
-                "temp_c": "optional",
-                "temp_f": "optional",
+                "temp_celcius": "optional",
+                "temp_fahrenheit": "optional",
                 "humidity": "optional"
             },
             "settings": [
