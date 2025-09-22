@@ -1,6 +1,6 @@
 {
     "name": "authored-component-example",
-    "version": "0.0.7",
+    "version": "v0.0.8",
     "css": [],
     "components": [
         {
@@ -17,7 +17,7 @@
                     "name": "temperature_format",
                     "label": "Temperature Format",
                     "description": "Choose between Celsius and Fahrenheit.",
-                    "default": "c",
+                    "default": "f",
                     "options": [
                         { "value": "c", "label": "Celsius" },
                         { "value": "f", "label": "Fahrenheit" }
