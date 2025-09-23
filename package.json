@@ -1,6 +1,6 @@
 {
   "name": "authored-component-example",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "Example distributable React component for IoT Studio dashboards.",
   "type": "module",
   "files": [
