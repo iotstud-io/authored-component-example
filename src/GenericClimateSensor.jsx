@@ -1,6 +1,6 @@
 import React from 'react';
 
-const temp_style = {
+let temp_style = {
     width: 'fit-content',
     padding: 20,
     fontWeight: 'bold',
