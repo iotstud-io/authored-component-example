@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
 
 let container_style = {
-    borderRadius: 10,   
+    borderRadius: 10,
+    overflow: 'hidden',
 }
 
 let temp_style = {
     backgroundColor: 'none',
     width: 'fit-content',
-    padding: 20,
+    padding: '0 10px',
     fontWeight: 'bold',
     textShadow: '1px 1px #2b2b2b',
-};
+}
 
 const info_style = {
     width: 'fit-content',
-    padding: 10,
-};
+    padding: '0 14px',
+}
 
 const GenericClimateSensor = ({ 
     title='Climate Sensor',
@@ -26,39 +27,43 @@ const GenericClimateSensor = ({
     settings={},
 }) => {
 
-    const format = settings?.temperature_format || 'f';
+    let format = 'f'
 
-    let temperature = '--';
-    let relative_humidity = '--';
+    if(settings && settings?.temperature_format === 'c') {
+        format = 'c'
+    }
+
+    let temperature = '--'
+    let relative_humidity = '--'
 
     if(humidity !== null) {
-        relative_humidity = humidity;
+        relative_humidity = humidity
     }
 
     if(format === 'c') {
 
         if(temp_celcius !== null) {
-            temperature = temp_celcius;
+            temperature = temp_celcius
         } 
 
         if(temp_celcius === null && temp_fahrenheit !== null) {
-            temperature = Math.round((temp_fahrenheit - 32) * 5 / 9);
+            temperature = Math.round((temp_fahrenheit - 32) * 5 / 9)
         }
     }
 
     if(format === 'f') {
 
         if(temp_fahrenheit !== null) {
-            temperature = temp_fahrenheit;
+            temperature = temp_fahrenheit
         }
 
         if(temp_fahrenheit === null && temp_celcius !== null) {
-            temperature = Math.round((temp_celcius * 9 / 5) + 32);
+            temperature = Math.round((temp_celcius * 9 / 5) + 32)
         }
     }
 
-    const t = `${temperature}°${format}`;
-    const h = `${relative_humidity}% RH`;
+    const t = `${temperature}°${format}`
+    const h = humidity !== null ? `| ${relative_humidity}% RH`: ''
 
     const temp_color = (t, f, th) => [
         th.palette.info.main,
@@ -69,21 +74,29 @@ const GenericClimateSensor = ({
         th.palette.error.light,
         th.palette.error.main
     ][
-        Math.min(6, Math.floor((Math.max(0, Math.min(100, f=='f'?t:(t*9/5+32))))/100*7))
+        Math.min(6, Math.floor((Math.max(0, Math.min(100, f=='f' ? t: (t*9/5+32) )))/100*7))
     ]
 
-    const instanceTempStyle = { ...temp_style, backgroundColor: temp_color(temperature, format, theme) };
-    const instanceContainerStyle = { ...container_style, border: `1px solid ${theme.palette.divider}` };
+    const tcolor = temp_color(temperature, format, theme)
+    const instanceTempStyle = { 
+        ...temp_style, 
+        backgroundColor: tcolor,
+        borderRight: `1px solid ${theme.palette.divider}`
+    }
+    const instanceContainerStyle = { ...container_style, border: `1px solid ${theme.palette.divider}` }
+    const infoTempStyle = { color: tcolor }
 
     return <div className='flx align-center' style={instanceContainerStyle}>
 
-        <div className='txt-center fs34' style={instanceTempStyle}>{t}</div>
+        <div className='txt-center fs40' style={instanceTempStyle}>{t}</div>
 
         <div className='txt-left' style={info_style}>
             <h4>{title}</h4>
-            <div className='txt-left'>{t} / {h}</div>
+            <div className='txt-left'>
+                <span style={infoTempStyle}>{t}</span> {h}
+            </div>
         </div>
     </div>
-};
+}
 
-export default GenericClimateSensor;
+export default GenericClimateSensor
