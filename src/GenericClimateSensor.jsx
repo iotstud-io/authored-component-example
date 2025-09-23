@@ -5,6 +5,7 @@ let container_style = {
 }
 
 let temp_style = {
+    backgroundColor: 'none',
     width: 'fit-content',
     padding: 20,
     fontWeight: 'bold',
