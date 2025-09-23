@@ -1,5 +1,9 @@
 import React from 'react';
 
+let container_style = {
+    borderRadius: 10,   
+}
+
 let temp_style = {
     width: 'fit-content',
     padding: 20,
@@ -68,13 +72,14 @@ const GenericClimateSensor = ({
     ]
 
     temp_style.backgroundColor = temp_color(temperature, format, theme);
+    container_style.border = `1px solid ${theme.palette.divider}`;
 
-    return <div className='flx align-center fs34'>
+    return <div className='flx align-center' style={container_style}>
 
-        <div className='txt-center' style={temp_style}>{t}</div>
+        <div className='txt-center fs34' style={temp_style}>{t}</div>
 
         <div className='txt-left' style={info_style}>
-            <h3>{title}</h3>
+            <h4>{title}</h4>
             <div className='txt-left'>{t} / {h}</div>
         </div>
     </div>
