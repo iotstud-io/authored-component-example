@@ -60,24 +60,24 @@ const GenericClimateSensor = ({
     const t = `${temperature}°${format}`;
     const h = `${relative_humidity}% RH`;
 
-    const temp_color = (t, f, theme) => [
-        theme.palette.info.main,
-        theme.palette.info.light,
-        theme.palette.success.light,
-        theme.palette.success.main,
-        theme.palette.warning.light,
-        theme.palette.error.light,
-        theme.palette.error.main
+    const temp_color = (t, f, th) => [
+        th.palette.info.main,
+        th.palette.info.light,
+        th.palette.success.light,
+        th.palette.success.main,
+        th.palette.warning.light,
+        th.palette.error.light,
+        th.palette.error.main
     ][
         Math.min(6, Math.floor((Math.max(0, Math.min(100, f=='f'?t:(t*9/5+32))))/100*7))
     ]
 
-    temp_style.backgroundColor = temp_color(temperature, format, theme);
-    container_style.border = `1px solid ${theme.palette.divider}`;
+    const instanceTempStyle = { ...temp_style, backgroundColor: temp_color(temperature, format, theme) };
+    const instanceContainerStyle = { ...container_style, border: `1px solid ${theme.palette.divider}` };
 
-    return <div className='flx align-center' style={container_style}>
+    return <div className='flx align-center' style={instanceContainerStyle}>
 
-        <div className='txt-center fs34' style={temp_style}>{t}</div>
+        <div className='txt-center fs34' style={instanceTempStyle}>{t}</div>
 
         <div className='txt-left' style={info_style}>
             <h4>{title}</h4>
