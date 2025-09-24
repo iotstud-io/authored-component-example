@@ -18,6 +18,20 @@ const info_style = {
     padding: '0 14px',
 }
 
+function roundUpIfNeeded(value) {
+
+    const n = Number(value)
+
+    if(!Number.isFinite(n)) return '--'
+
+    const scaled = n * 100
+    const hasMoreThanTwo = Math.abs(scaled - Math.round(scaled)) > 1e-10
+
+    if(!hasMoreThanTwo) return n
+
+    return Math.ceil(scaled - 1e-12) / 100
+}
+
 const GenericClimateSensor = ({ 
     title='Climate Sensor',
     theme,
@@ -62,8 +76,8 @@ const GenericClimateSensor = ({
         }
     }
 
-    const t = `${temperature}°${format}`
-    const h = humidity !== null ? `| ${relative_humidity}% RH`: ''
+    const t = `${roundUpIfNeeded(temperature)}°${format}`
+    const h = humidity !== null ? `| ${roundUpIfNeeded(relative_humidity)}% RH`: ''
 
     const temp_color = (t, f, th) => [
         th.palette.info.main,
