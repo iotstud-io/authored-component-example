@@ -1,6 +1,7 @@
 import React from 'react'
 
 let container_style = {
+    width: 'fit-content',
     borderRadius: 10,
     overflow: 'hidden',
 }
@@ -8,7 +9,7 @@ let container_style = {
 let temp_style = {
     backgroundColor: 'none',
     width: 'fit-content',
-    padding: '0 10px',
+    padding: '0px 10px 4px 10px',
     fontWeight: 'bold',
     textShadow: '1px 1px #2b2b2b',
 }
@@ -18,18 +19,15 @@ const info_style = {
     padding: '0 14px',
 }
 
-function roundUpIfNeeded(value) {
+const roundUpIfNeeded = value => {
 
     const n = Number(value)
 
-    if(!Number.isFinite(n)) return '--'
+    if(!Number.isFinite(n)) return value
 
-    const scaled = n * 100
-    const hasMoreThanTwo = Math.abs(scaled - Math.round(scaled)) > 1e-10
+    if(Number.isInteger(n)) return n
 
-    if(!hasMoreThanTwo) return n
-
-    return Math.ceil(scaled - 1e-12) / 100
+    return Math.ceil(n)
 }
 
 const GenericClimateSensor = ({ 
@@ -42,16 +40,10 @@ const GenericClimateSensor = ({
 }) => {
 
     let format = 'f'
+    let temperature = null
 
     if(settings && settings?.temperature_format === 'c') {
         format = 'c'
-    }
-
-    let temperature = '--'
-    let relative_humidity = '--'
-
-    if(humidity !== null) {
-        relative_humidity = humidity
     }
 
     if(format === 'c') {
@@ -76,38 +68,41 @@ const GenericClimateSensor = ({
         }
     }
 
-    const t = `${roundUpIfNeeded(temperature)}°${format}`
+    const t = temperature !== null ? `${roundUpIfNeeded(temperature)}°${format}`: '--'
     const h = humidity !== null ? `| ${roundUpIfNeeded(relative_humidity)}% RH`: ''
+    const seperator = (temperature !== null && humidity !== null) ? '|': ''
 
-    const temp_color = (t, f, th) => [
-        th.palette.info.main,
-        th.palette.info.light,
-        th.palette.success.light,
-        th.palette.success.main,
-        th.palette.warning.light,
-        th.palette.error.light,
-        th.palette.error.main
-    ][
-        Math.min(6, Math.floor((Math.max(0, Math.min(100, f=='f' ? t: (t*9/5+32) )))/100*7))
-    ]
+    const tempColor = (t, u, th)=> (
+        f => [
+            th.palette.info.main,
+            th.palette.info.light,
+            th.palette.success.light,
+            th.palette.success.main,
+            th.palette.warning.light,
+            th.palette.error.light,
+            th.palette.error.main
+        ][f <= 32 ? 0: f >= 100 ? 6: 1 + ((f-32)/68*5|0)]
+    )(u==='f' ? t: t*9/5+32)
 
-    const tcolor = temp_color(temperature, format, theme)
+    const tcolor = tempColor(temperature, format, theme)
+    const infoTempStyle = { color: tcolor }
+    const instanceContainerStyle = { ...container_style, border: `1px solid ${tcolor}` }
     const instanceTempStyle = { 
         ...temp_style, 
         backgroundColor: tcolor,
-        borderRight: `1px solid ${theme.palette.divider}`
+        borderRight: `1px solid ${tcolor}`
     }
-    const instanceContainerStyle = { ...container_style, border: `1px solid ${theme.palette.divider}` }
-    const infoTempStyle = { color: tcolor }
 
     return <div className='flx align-center' style={instanceContainerStyle}>
 
         <div className='txt-center fs40' style={instanceTempStyle}>{t}</div>
 
         <div className='txt-left' style={info_style}>
+
             <h4>{title}</h4>
-            <div className='txt-left'>
-                <span style={infoTempStyle}>{t}</span> {h}
+
+            <div className='txt-center'>
+                <span style={infoTempStyle}>{t}</span> {seperator} {h}
             </div>
         </div>
     </div>
