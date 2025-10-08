@@ -9,7 +9,8 @@ let container_style = {
 let temp_style = {
     backgroundColor: 'none',
     width: 'fit-content',
-    padding: '0px 10px 4px 10px',
+    linbeHeight: '41px',
+    padding: '5px 10px 10px 10px',
     fontWeight: 'bold',
     textShadow: '1px 1px #2b2b2b',
 }
@@ -69,7 +70,7 @@ const GenericClimateSensor = ({
     }
 
     const t = temperature !== null ? `${roundUpIfNeeded(temperature)}°${format}`: '--'
-    const h = humidity !== null ? `| ${roundUpIfNeeded(relative_humidity)}% RH`: ''
+    const h = humidity !== null ? `| ${roundUpIfNeeded(humidity)}% RH`: ''
     const seperator = (temperature !== null && humidity !== null) ? '|': ''
 
     const tempColor = (t, u, th)=> (
