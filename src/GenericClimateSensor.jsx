@@ -9,15 +9,15 @@ let container_style = {
 let temp_style = {
     backgroundColor: 'none',
     width: 'fit-content',
-    linbeHeight: '41px',
-    padding: '5px 10px 10px 10px',
+    lineHeight: '41px',
+    padding: '0px 8px 6px 6px',
     fontWeight: 'bold',
-    textShadow: '1px 1px #2b2b2b',
+    textShadow: '#2b2b2b 1.4px 1.4px 1px',
 }
 
 const info_style = {
     width: 'fit-content',
-    padding: '0 14px',
+    padding: '0 20px',
 }
 
 const roundUpIfNeeded = value => {
@@ -70,7 +70,7 @@ const GenericClimateSensor = ({
     }
 
     const t = temperature !== null ? `${roundUpIfNeeded(temperature)}°${format}`: '--'
-    const h = humidity !== null ? `| ${roundUpIfNeeded(humidity)}% RH`: ''
+    const h = humidity !== null ? `${roundUpIfNeeded(humidity)}% RH`: ''
     const seperator = (temperature !== null && humidity !== null) ? '|': ''
 
     const tempColor = (t, u, th)=> (
@@ -98,11 +98,11 @@ const GenericClimateSensor = ({
 
         <div className='txt-center fs40' style={instanceTempStyle}>{t}</div>
 
-        <div className='txt-left' style={info_style}>
+        <div className='txt-center' style={info_style}>
 
             <h4>{title}</h4>
 
-            <div className='txt-center'>
+            <div>
                 <span style={infoTempStyle}>{t}</span> {seperator} {h}
             </div>
         </div>
