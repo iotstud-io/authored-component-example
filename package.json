@@ -1,6 +1,6 @@
 {
   "name": "authored-component-example",
-  "version": "0.0.19",
+  "version": "0.0.21",
   "description": "Example distributable React component for IoT Studio dashboards.",
   "type": "module",
   "files": [
@@ -11,22 +11,17 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "dev": "vite --mode external",
+    "build": "vite build"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.3",
-    "@babel/preset-env": "7.28.3",
-    "@babel/preset-react": "7.27.1",
-    "@rollup/plugin-babel": "6.0.4",
-    "@rollup/plugin-commonjs": "28.0.6",
-    "@rollup/plugin-node-resolve": "16.0.1",
-    "@rollup/plugin-terser": "0.4.4",
-    "rollup": "4.50.0",
-    "rollup-plugin-copy": "3.5.0"
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-static-copy": "^0.17.0"
   },
   "license": "MIT"
 }

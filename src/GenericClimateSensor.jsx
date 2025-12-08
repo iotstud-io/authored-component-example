@@ -9,15 +9,16 @@ let container_style = {
 let temp_style = {
     backgroundColor: 'none',
     width: 'fit-content',
-    lineHeight: '41px',
-    padding: '0px 8px 6px 6px',
+    lineHeight: '45px',
+    padding: '1px 12px 6px 10px',
+    fontSize: 50,
     fontWeight: 'bold',
     textShadow: '#2b2b2b 1.4px 1.4px 1px',
 }
 
 const info_style = {
     width: 'fit-content',
-    padding: '0 20px',
+    padding: '0 10px',
 }
 
 const roundUpIfNeeded = value => {
@@ -31,6 +32,9 @@ const roundUpIfNeeded = value => {
     return Math.ceil(n)
 }
 
+const c_to_f = c => (c * 9 / 5) + 32
+const f_to_c = f => (f - 32) * 5 / 9
+
 const GenericClimateSensor = ({ 
     title='Climate Sensor',
     theme,
@@ -42,8 +46,9 @@ const GenericClimateSensor = ({
 
     let format = 'f'
     let temperature = null
+    let temperature_opposite_unit = null
 
-    if(settings && settings?.temperature_format === 'c') {
+    if(settings?.temperature_format === 'c') {
         format = 'c'
     }
 
@@ -51,25 +56,30 @@ const GenericClimateSensor = ({
 
         if(temp_celcius !== null) {
             temperature = temp_celcius
+            temperature_opposite_unit = c_to_f(temp_celcius)
         } 
 
         if(temp_celcius === null && temp_fahrenheit !== null) {
-            temperature = Math.round((temp_fahrenheit - 32) * 5 / 9)
-        }
+            temperature = f_to_c(temp_fahrenheit)
+            temperature_opposite_unit = temp_fahrenheit
+        }        
     }
 
     if(format === 'f') {
 
         if(temp_fahrenheit !== null) {
             temperature = temp_fahrenheit
+            temperature_opposite_unit = f_to_c(temp_fahrenheit)
         }
 
         if(temp_fahrenheit === null && temp_celcius !== null) {
-            temperature = Math.round((temp_celcius * 9 / 5) + 32)
+            temperature = c_to_f(temp_celcius)
+            temperature_opposite_unit = temp_celcius
         }
     }
 
     const t = temperature !== null ? `${roundUpIfNeeded(temperature)}°${format}`: '--'
+    const tou = temperature_opposite_unit !== null ? `${roundUpIfNeeded(temperature_opposite_unit)}°${format === 'f' ? 'c': 'f'}`: '--'
     const h = humidity !== null ? `${roundUpIfNeeded(humidity)}% RH`: ''
     const seperator = (temperature !== null && humidity !== null) ? '|': ''
 
@@ -96,14 +106,14 @@ const GenericClimateSensor = ({
 
     return <div className='flx align-center' style={instanceContainerStyle}>
 
-        <div className='txt-center fs40' style={instanceTempStyle}>{t}</div>
+        <div className='txt-center' style={instanceTempStyle}>{t}</div>
 
         <div className='txt-center' style={info_style}>
 
             <h4>{title}</h4>
 
             <div>
-                <span style={infoTempStyle}>{t}</span> {seperator} {h}
+                <span style={infoTempStyle}>{tou}</span> {seperator} {h}
             </div>
         </div>
     </div>

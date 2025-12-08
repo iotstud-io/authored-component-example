@@ -8,55 +8,63 @@ This repo is a template for authors to create versioned, distributable React com
 - Manifest (`exposes.json`) describing exported components, their capabilities and settings.
 - Simple authoring and publishing workflow
 
-## Quick Start
+## To Get Started
 
-### 1. Fork this repo:
+### Fork this repo:
+1) Go to this example repo on GitHub: https://github.com/iotstud-io/authored-component-example
+2) Click Code → Download ZIP
+3) Extract the ZIP to a new folder, e.g. my-new-repo:
+4) Reset the package and manifest version numbers in `package.json` and `exposes.json` to `0.0.1`.
+5) Then initialize and create the first commit in the new folder:
 ```sh
-git clone https://github.com/iotstud-io/authored-component-example.git
-cd authored-component-example
+cd /path/to/my-new-repo
+
+git init
+git add .
+git commit -m "Initial commit"
 ```
-- Create an empty repo on your GitHub (via UI or `gh repo create YOUR_REPO_NAME --private`)
-- Then mirror-push all refs to it
-`git push --mirror git@github.com:YOUR_GH_USERNAME/YOUR_NEW_REPO_NAME.git`
-- Now cleanup the bare clone
+6) Create an new repo on your GitHub account (Gitlab or Gitea are also supported)
+7) Add as origin and push:
 ```sh
-cd ..
-rm -rf authored-component-example
-```
-- Now work from your new independent repo and track it with `main` branch
-```sh
-git clone git@github.com:YOUR_GH_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git branch -M main
+git remote add origin git@github.com:your-username/my-new-repo.git
 git push -u origin main
 ```
+Result:
+You now have a repo with one initial commit and no history from the original, a clean fork.
 
-### 2. Install dependencies:
+## Development Workflow
+
+### Install Dependencies:
 ```sh
 npm install
 ```
 
-### 3. Develop your component:
-- Edit `src/GenericClimateSensor.jsx` (or add more components)
-- Change the name of the component to your liking and its export name in `rollup.config.js`
-- Once you've created your component(s) now you are ready to release
-- Bump the version in `package.json` and `exposes.json`.
-- Update `exposes.json` to describe your exports, your components capabilities and settings (more info on those coming soon).
-- Commit changes to GitHub `git add -A && git commit -m "My first authored component for IoT Studio" && git push origin main`
+### Develop your component(s):
+1) Change the file name of the component to your liking and its export name (filename must match export name).
+2) Then in `vite.config.js` update the entry file name and fileName and in `exposes.json` update the component name.
+3) Edit `src/<NewComponentFileName>.jsx` (more components can be added as needed)
+4) Bump the version in `package.json` and `exposes.json`.
+5) Update `exposes.json` to describe your components capabilities and settings (guide coming soon).
+6) Commit changes to GitHub `git add -A && git commit -m "My first change to my new authored component for IoT Studio" && git push origin main`
+7) Optionally tag the commit with the version: `git tag v0.0.2 && git push origin v0.0.2`
 
-### 4. Build the bundle:
+ > Repeat steps 3-7 to iterate on your Component.
+
+### Build the bundle:
 ```sh
 npm run build
 ```
 - Output will be in `dist/` as ESM bundles
 
-### 5. Release:
-- Add contents of dist to a zip file:
+### Release:
+- Add contents of dist to a zip file (named with version):
 ```bash
-tar -czf dist-v0.0.1.tar.gz -C dist .
+tar -czf dist-v0.0.2.tar.gz -C dist .
 ```
 - Use the zip as a release in the repo (github example):
 ```bash
-gh release create v0.0.1 dist-v0.0.1.tar.gz -t "v0.0.1" -n "First release of authored-component-example"
+gh release create v0.0.2 dist-v0.0.2.tar.gz -t "v0.0.2" -n "First release of your IoT Studio component."
 ```
 Or the equivalent with your preferred method of publishing releases. Make sure you tag with the same version as in `package.json` and `exposes.json`.
 
@@ -67,7 +75,7 @@ Or the equivalent with your preferred method of publishing releases. Make sure y
     <ComponentName>.jsx
     <OtherComponentName>.jsx
   exposes.json
-  rollup.config.js
+  vite.config.js
   package.json
   README.md
 ```
@@ -80,4 +88,4 @@ Or the equivalent with your preferred method of publishing releases. Make sure y
   - `react`, `react-dom/client`, `react/jsx-runtime`, `react/jsx-dev-runtime`
 - Bundle all other dependencies.
 - Use semantic versioning for releases.
-- Test your bundle with a simple HTML page using import maps.
+- Test your bundle using the IoT Studio Sandbox (guide coming soon).
