@@ -1,6 +1,6 @@
 {
     "name": "authored-component-example",
-    "version": "v0.0.21",
+    "version": "v0.0.22",
     "css": [],
     "components": [
         {
@@ -21,6 +21,26 @@
                     "options": [
                         { "value": "c", "label": "Celsius" },
                         { "value": "f", "label": "Fahrenheit" }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "OrgLocation",
+            "defaultExport": true,
+            "description": "Generic display of a location in the org hierarchy tree.",
+            "capabilities": {},
+            "settings": [
+                {
+                    "name": "drill_to",
+                    "label": "Location to Drill To",
+                    "description": "Choose where in the Org Hierarchy tree to show.",
+                    "default": "unit",
+                    "options": [
+                        { "value": "unit", "label": "Unit" },
+                        { "value": "zone", "label": "Zone" },
+                        { "value": "building", "label": "Building" },
+                        { "value": "property", "label": "Property" }
                     ]
                 }
             ]
