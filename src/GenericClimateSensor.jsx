@@ -1,24 +1,26 @@
 import React from 'react'
 
 let container_style = {
-    width: 'fit-content',
-    borderRadius: 10,
-    overflow: 'hidden',
+    border: '1px solid transparent',
+    borderRadius: '10px',
 }
 
 let temp_style = {
-    backgroundColor: 'none',
-    width: 'fit-content',
-    lineHeight: '45px',
-    padding: '1px 12px 6px 10px',
-    fontSize: 50,
+    flexShrink: 0,
+    borderRadius: '50%',
+    width: '65px',
+    height: '65px',
+    textAlign: 'center',
+    margin: '12px 14px',
+    fontSize: '22px',
     fontWeight: 'bold',
-    textShadow: '#2b2b2b 1.4px 1.4px 1px',
+    padding: '14px 0',
 }
 
 const info_style = {
+    fontSize: '18px',
     width: 'fit-content',
-    padding: '0 10px',
+    padding: '0 10px 0 0',
 }
 
 const roundUpIfNeeded = value => {
@@ -81,7 +83,7 @@ const GenericClimateSensor = ({
     const t = temperature !== null ? `${roundUpIfNeeded(temperature)}°${format}`: '--'
     const tou = temperature_opposite_unit !== null ? `${roundUpIfNeeded(temperature_opposite_unit)}°${format === 'f' ? 'c': 'f'}`: '--'
     const h = humidity !== null ? `${roundUpIfNeeded(humidity)}% RH`: ''
-    const seperator = (temperature !== null && humidity !== null) ? '|': ''
+    const seperator = (temperature !== null && humidity !== null) ? <span style={{color: theme.palette.text.secondary}}>|</span>: ''
 
     const tempColor = (t, u, th)=> (
         f => [
@@ -96,23 +98,31 @@ const GenericClimateSensor = ({
     )(u==='f' ? t: t*9/5+32)
 
     const tcolor = tempColor(temperature, format, theme)
-    const infoTempStyle = { color: tcolor }
-    const instanceContainerStyle = { ...container_style, border: `1px solid ${tcolor}` }
+    const infoTempStyle = { color: tcolor, fontWeight: 'bold' }
+    const instanceContainerStyle = { 
+        ...container_style,
+        boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
+        background:
+            `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
+            linear-gradient(135deg, ${theme.palette.background.paper}, #000000) border-box`,
+    }
     const instanceTempStyle = { 
         ...temp_style, 
-        backgroundColor: tcolor,
-        borderRight: `1px solid ${tcolor}`
+        textShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
+        //backgroundColor: tcolor,
+        outline: `3px solid ${tcolor}`,
+        backgroundColor: theme.palette.background.paper,
     }
 
-    return <div className='flx align-center' style={instanceContainerStyle}>
+    return <div className='flx align-center justify-center' style={instanceContainerStyle}>
 
-        <div className='txt-center' style={instanceTempStyle}>{t}</div>
+        <div style={instanceTempStyle}>{t}</div>
 
         <div className='txt-center' style={info_style}>
 
             <h4>{title}</h4>
 
-            <div>
+            <div style={{ paddingTop: '5px' }}>
                 <span style={infoTempStyle}>{tou}</span> {seperator} {h}
             </div>
         </div>
