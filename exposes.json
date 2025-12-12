@@ -1,6 +1,6 @@
 {
     "name": "authored-component-example",
-    "version": "v0.0.22",
+    "version": "v0.0.23",
     "css": [],
     "components": [
         {
@@ -44,6 +44,15 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "CngSensor",
+            "defaultExport": true,
+            "description": "Generic display of a Compressed Natural Gas sensor.",
+            "capabilities": {
+                "cng": "optional"
+            },
+            "settings": []
         }
     ]
 }

@@ -44,7 +44,7 @@ npm install
 
 ### Develop your component(s):
 1) Edit your React Component @ `src/<ComponentFileName>.jsx` (more components can be added as needed)
-2) Update `exposes.json` to describe your components capabilities and settings (guide coming soon).
+2) Update `exposes.json` to describe your component's capabilities and settings (guide coming soon).
 3) Bump the version in `package.json` and `exposes.json`.
 4) Commit changes to GitHub `git add -A && git commit -m "My first change to my new authored component for IoT Studio" && git push origin main`
 5) Optionally tag the commit with the version: `git tag v0.0.2 && git push origin v0.0.2`
