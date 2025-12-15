@@ -14,7 +14,7 @@ This repo is a template for authors to create versioned, distributable React com
 1) Go to this example repo on GitHub: https://github.com/iotstud-io/authored-component-example
 2) Click Code → Download ZIP
 3) Extract the ZIP to where you want your new repo to live and rename the extracted folder to your new repo name, e.g. `my-new-repo`.
-4) Reset the package and manifest version numbers in `package.json` and `exposes.json` to `0.0.1`.
+4) Reset the package and manifest version number in `package.json` to `0.0.1`.
 5) Change the file name of the component jsx file to your liking and its export name (filename must match export name).
 6) Then in `vite.config.js` update the entry file name and fileName and in `exposes.json` update the component name.
 5) Then initialize and create the first commit in the new folder:
@@ -45,7 +45,7 @@ npm install
 ### Develop your component(s):
 1) Edit your React Component @ `src/<ComponentFileName>.jsx` (more components can be added as needed)
 2) Update `exposes.json` to describe your component's capabilities and settings (guide coming soon).
-3) Bump the version in `package.json` and `exposes.json`.
+3) Bump the version in `package.json`.
 4) Commit changes to GitHub `git add -A && git commit -m "My first change to my new authored component for IoT Studio" && git push origin main`
 5) Optionally tag the commit with the version: `git tag v0.0.2 && git push origin v0.0.2`
 
@@ -66,7 +66,7 @@ tar -czf dist-v0.0.2.tar.gz -C dist .
 ```bash
 gh release create v0.0.2 dist-v0.0.2.tar.gz -t "v0.0.2" -n "First release of your IoT Studio component."
 ```
-Or the equivalent with your preferred method of publishing releases. Make sure you tag with the same version as in `package.json` and `exposes.json`.
+Or the equivalent with your preferred method of publishing releases. Make sure you tag with the same version as in `package.json`.
 
 ## Directory Structure
 ```
