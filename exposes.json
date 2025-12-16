@@ -5,7 +5,7 @@
         {
             "name": "GenericClimateSensor",
             "defaultExport": true,
-            "description": "Generic temperature/humidity component. Device should provide temperature in Celsius or Fahrenheit, and humidity as percentage.",
+            "description": "Generic temperature/humidity component.",
             "capabilities": {
                 "temp_celcius": "optional",
                 "temp_fahrenheit": "optional",
