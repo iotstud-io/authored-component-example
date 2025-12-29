@@ -1,6 +1,7 @@
 let container_style = {
     border: '1px solid transparent',
     borderRadius: '10px',
+    width: 'fit-content',
 }
 
 let ppm_style = {

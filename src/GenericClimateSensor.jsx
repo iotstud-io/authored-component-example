@@ -3,6 +3,7 @@ import React from 'react'
 let container_style = {
     border: '1px solid transparent',
     borderRadius: '10px',
+    width: 'fit-content',
 }
 
 let temp_style = {
@@ -85,17 +86,31 @@ const GenericClimateSensor = ({
     const h = humidity !== null ? `${roundUpIfNeeded(humidity)}% RH`: ''
     const seperator = (temperature !== null && humidity !== null) ? <span style={{color: theme.palette.text.secondary}}>|</span>: ''
 
-    const tempColor = (t, u, th)=> (
-        f => [
-            th.palette.info.main,
-            th.palette.info.light,
-            th.palette.success.light,
-            th.palette.success.main,
-            th.palette.warning.light,
-            th.palette.error.light,
-            th.palette.error.main
-        ][f <= 32 ? 0: f >= 100 ? 6: 1 + ((f-32)/68*5|0)]
-    )(u==='f' ? t: t*9/5+32)
+    const tempColor = (t, u, th) => (
+        f => {
+            const colors = [
+                th.palette.tertiary.dark,
+                th.palette.tertiary.main,
+                th.palette.info.main,
+                th.palette.info.light,
+                th.palette.success.light,
+                th.palette.success.main,
+                th.palette.warning.light,
+                th.palette.error.light,
+                th.palette.error.main
+            ]
+
+            if(f <= 0) return colors[0]
+            if(f <= 16) return colors[1]
+            if(f <= 32) return colors[2]
+            if(f <= 55) return colors[3]
+            if(f <= 65) return colors[4]
+            if(f <= 80) return colors[5]
+            if(f <= 90) return colors[6]
+            if(f <= 100) return colors[7]
+            if(f >= 101) return colors[8]
+        }
+    )(u === 'f' ? t : (t * 9 / 5 + 32))
 
     const tcolor = tempColor(temperature, format, theme)
     const infoTempStyle = { color: tcolor, fontWeight: 'bold' }
