@@ -1,5 +1,22 @@
 
-const OrgLocation = ({theme}) => {
+const OrgLocation = ({settings, theme}) => {
+
+    let show_room_level = false
+    let size = 'small'
+
+    if(settings?.size === 'medium') {
+        size = 'medium'
+    }
+
+    if(settings?.size === 'large') {
+        size = 'large'
+    }
+
+    if(settings?.show_room_level === true) {
+        show_room_level = true
+    }
+
+    const between_padding = size === 'small' ? 0 : size === 'medium' ? '8px' : size === 'large' ? '15px' : 0
 
     const style = { 
         width: 'fit-content',
@@ -14,9 +31,32 @@ const OrgLocation = ({theme}) => {
     }
 
     return <div style={style}>
-        <h1 style={{fontSize: '30.5px', lineHeight: '30px'}}>860 Washington Street</h1>
-        <div style={{lineHeight: '29px', fontSize: '22px', color: theme.palette.text.secondary}}>WellCube Science Lab</div>
-        <div style={{lineHeight: '18px', fontSize: '18px', color: theme.palette.text.secondary}}>4th Floor</div>
+
+        <h1 style={{
+            fontSize: '30.5px', lineHeight: '30px'
+        }}>860 Washington Street</h1>
+
+        <div style={{
+            paddingTop: between_padding, 
+            lineHeight: '29px', 
+            fontSize: '22px', 
+            color: theme.palette.text.secondary
+        }}>WellCube Science Lab</div>
+
+        <div style={{
+            paddingTop: between_padding, 
+            lineHeight: '18px', 
+            fontSize: '18px', 
+            color: theme.palette.text.secondary
+        }}>4th Floor</div>
+
+        {show_room_level && 
+        <div style={{
+            paddingTop: between_padding, 
+            lineHeight: '18px', 
+            fontSize: '18px', 
+            color: theme.palette.text.secondary
+        }}>Conference Room A</div>}
     </div>
 }
 
