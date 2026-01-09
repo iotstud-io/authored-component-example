@@ -31,15 +31,24 @@
             "capabilities": {},
             "settings": [
                 {
-                    "name": "drill_to",
-                    "label": "Location to Drill To",
-                    "description": "Choose where in the Org Hierarchy tree to show.",
-                    "default": "unit",
+                    "name": "show_room_level",
+                    "label": "Show/Hide Room Level",
+                    "description": "Toggle to show or hide the room level in the location display.",
+                    "default": false,
                     "options": [
-                        { "value": "unit", "label": "Unit" },
-                        { "value": "zone", "label": "Zone" },
-                        { "value": "building", "label": "Building" },
-                        { "value": "property", "label": "Property" }
+                        { "value": false, "label": "Hide" },
+                        { "value": true, "label": "Show" }
+                    ]
+                },
+                {
+                    "name": "size",
+                    "label": "Choose a size of the Component",
+                    "description": "Switches between different sizes for the component to display as.",
+                    "default": "small",
+                    "options": [
+                        { "value": "small", "label": "Small" },
+                        { "value": "medium", "label": "Medium" },
+                        { "value": "large", "label": "Large" }
                     ]
                 }
             ]
@@ -51,6 +60,34 @@
             "capabilities": {
                 "cng": "optional"
             },
+            "settings": []
+        },
+        {
+            "name": "GenericThermostatSlider",
+            "defaultExport": true,
+            "description": "Generic display/controller of a Smart Thermostat.",
+            "capabilities": {
+                "temp_celcius": "optional",
+                "temp_fahrenheit": "optional"
+            },
+            "settings": [
+                {
+                    "name": "temperature_format",
+                    "label": "Temperature Format",
+                    "description": "Choose between Celsius and Fahrenheit.",
+                    "default": "f",
+                    "options": [
+                        { "value": "c", "label": "Celsius" },
+                        { "value": "f", "label": "Fahrenheit" }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "GenericLightDimmer",
+            "defaultExport": true,
+            "description": "Generic display/controller of a Smart Light Dimmer.",
+            "capabilities": {},
             "settings": []
         }
     ]
