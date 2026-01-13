@@ -32,8 +32,8 @@
             "settings": [
                 {
                     "name": "show_room_level",
-                    "label": "Show/Hide Room Level",
-                    "description": "Toggle to show or hide the room level in the location display.",
+                    "label": "Show/Hide Unit Level of Org Location",
+                    "description": "Toggle to show or hide the unit level of the Org Location.",
                     "default": false,
                     "options": [
                         { "value": false, "label": "Hide" },
