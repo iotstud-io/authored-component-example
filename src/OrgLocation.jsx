@@ -16,18 +16,19 @@ const OrgLocation = ({settings, theme}) => {
         show_room_level = true
     }
 
-    const between_padding = size === 'small' ? 0 : size === 'medium' ? '8px' : size === 'large' ? '15px' : 0
+    const between_padding = size === 'small' ? 0 : size === 'medium' ? '8px' : size === 'large' ? '10px' : 0
+    const outer_padding = size === 'small' ? '8px' : size === 'medium' ? '15px' : size === 'large' ? '15px' : '10px'
 
     const style = { 
-        width: 'fit-content',
+        width: '100%',
+        height: '100%', 
         border: '1px solid transparent',
         borderRadius: '10px',
-        height: 'auto', 
-        padding: '10px 10px 5px 10px',
+        padding: outer_padding,
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
-            linear-gradient(135deg, ${theme.palette.background.paper}, #000000) border-box`,
+            linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
 
     return <div style={style}>
