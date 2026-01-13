@@ -1,7 +1,8 @@
 let container_style = {
     border: '1px solid transparent',
     borderRadius: '10px',
-    width: 'fit-content',
+    width: '100%',
+    height: '100%', 
 }
 
 let ppm_style = {
@@ -41,7 +42,7 @@ const CngSensor = ({ cng=0, title='CNG Sensor', theme }) => {
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
-            linear-gradient(135deg, ${theme.palette.background.paper}, #000000) border-box`,
+            linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
     const instancePpmStyle = { 
         ...ppm_style, 
