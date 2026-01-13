@@ -140,16 +140,17 @@ const GenericLightDimmer = ({
     }
 
     const root_style = { 
-        maxWidth: '325px',
+        width: '100%',
+        minWidth: '300px',
+        height: '100%', 
         border: '1px solid transparent',
         borderRadius: '10px',
-        height: 'auto', 
         margin: 0,
-        padding: '5px 20px 20px 20px',
+        padding: '5px 20px 25px 20px',
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
-            linear-gradient(135deg, ${theme.palette.background.paper}, #000000) border-box`,
+            linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
 
     const containerStyle = {
@@ -163,7 +164,7 @@ const GenericLightDimmer = ({
         height: '40px',
         borderRadius: '10px',
         borderShape: 'squircle',
-        background: 'linear-gradient(90deg, #989898 0%, #d7d7d7 100%)',
+        background: 'linear-gradient(90deg, #646464ff 0%, #d7d7d7 100%)',
         cursor: 'pointer',
         touchAction: 'none',
         userSelect: 'none',
