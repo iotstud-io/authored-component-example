@@ -1,6 +1,5 @@
 {
     "name": "authored-component-example",
-    "css": [],
     "components": [
         {
             "name": "GenericClimateSensor",

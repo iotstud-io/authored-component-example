@@ -45,6 +45,8 @@ npm install
 ### Develop your component(s):
 1) Edit your React Component @ `src/<ComponentFileName>.jsx` (more components can be added as needed)
 2) Update `exposes.json` to describe your component's capabilities and settings (guide coming soon).
+   - Define component styles in `components[].css` (array of local relative `.css` files).
+   - Shared styles can be reused by listing the same css file in multiple components.
 3) Bump the version in `package.json`.
 4) Commit changes to GitHub `git add -A && git commit -m "My first change to my new authored component for IoT Studio" && git push origin main`
 5) Optionally tag the commit with the version: `git tag v0.0.2 && git push origin v0.0.2`
@@ -84,6 +86,7 @@ Or the equivalent with your preferred method of publishing releases. Make sure y
 - React and JSX runtimes are externals; host provides them via import maps/shims.
 - Export your component as default (or named) from your entry or component files.
 - Update `exposes.json` for each exported component.
+- Define style files in `components[].css`; top-level `css` is not supported.
 - Keep only the following bare imports unbundled (externals):
   - `react`, `react-dom/client`, `react/jsx-runtime`, `react/jsx-dev-runtime`
 - Bundle all other dependencies.
