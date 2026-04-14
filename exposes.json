@@ -86,7 +86,21 @@
             "name": "GenericLightDimmer",
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Light Dimmer.",
-            "capabilities": {},
+            "capabilities": {
+                "brightness_percent": "required",
+                "set_brightness": "required",
+                "light_state": "optional",
+                "set_light_state": "optional"
+            },
+            "settings": []
+        },
+        {
+            "name": "GenericLeakDetector",
+            "defaultExport": true,
+            "description": "Generic display of a water leak detector.",
+            "capabilities": {
+                "water_detected": "optional"
+            },
             "settings": []
         }
     ]
