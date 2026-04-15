@@ -1,53 +1,75 @@
 import { useEffect, useRef, useState } from 'react'
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
-
 const min = 0
 const max = 100
 
+const toPercentValue = value => {
+    const numeric = Number(value)
+
+    if(!Number.isFinite(numeric)) {
+        return 0
+    }
+
+    return clamp(Math.round(numeric), min, max)
+}
+
 const GenericLightDimmer = ({
-    value: controlledValue,
-    defaultValue,
+    brightness_percent,
+    light_state,
+    set_brightness=false,
+    set_light_state=false,
     theme,
     title='Lights',
+    triggerCapability,
 }) => {
 
     const trackRef = useRef(null)
     const [dragging, setDragging] = useState(false)
+    const [dragValue, setDragValue] = useState(0)
 
-    const safeMin = Number.isFinite(min) ? min : 0
-    const safeMaxRaw = Number.isFinite(max) ? max : safeMin + 1
-    const safeMax = safeMaxRaw === safeMin ? safeMin + 1 : safeMaxRaw
-    const rangeMin = Math.min(safeMin, safeMax)
-    const rangeMax = Math.max(safeMin, safeMax)
-
-    const isControlled = Number.isFinite(controlledValue)
-    const [internalValue, setInternalValue] = useState(() => {
-
-        const startValue = Number.isFinite(defaultValue) ? defaultValue : rangeMin
-
-        return clamp(Math.round(startValue), rangeMin, rangeMax)
-    })
-
-    const value = clamp(
-        isControlled ? controlledValue : internalValue,
-        rangeMin,
-        rangeMax
-    )
+    const rangeMin = min
+    const rangeMax = max
+    const brightnessValue = toPercentValue(brightness_percent)
+    const stateValue = typeof light_state === 'string' ? light_state.toLowerCase() : ''
+    const hasLightState = stateValue.length > 0
+    const isOn = hasLightState ? stateValue === 'on' : brightnessValue > 0
+    const hostValue = hasLightState && !isOn ? 0 : brightnessValue
+    const value = dragging ? dragValue : hostValue
+    const canSetBrightness = set_brightness === true
+    const canSetLightState = set_light_state === true
 
     useEffect(() => {
+        if(!dragging) {
+            setDragValue(hostValue)
+        }
+    }, [dragging, hostValue])
 
-        if(isControlled) return
+    const callTrigger = async (name, nextValue) => {
+        if(typeof triggerCapability !== 'function') {
+            return
+        }
 
-        setInternalValue(prev => clamp(prev, rangeMin, rangeMax))
+        await triggerCapability(name, nextValue)
+    }
 
-    }, [isControlled, rangeMin, rangeMax])
+    const commitBrightness = async next => {
+        const normalized = clamp(Math.round(next), rangeMin, rangeMax)
 
-    const commitValue = next => {
+        if(normalized <= 0) {
+            if(canSetLightState) {
+                await callTrigger('set_light_state', 'off')
+            }
+            return
+        }
 
-        if(next === value) return
+        if(canSetLightState && hostValue <= 0) {
+            await callTrigger('set_light_state', 'on')
+        }
 
-        if(!isControlled) setInternalValue(next)
+        if(canSetBrightness) {
+            await callTrigger('set_brightness', normalized)
+        }
     }
 
     const getValueFromPointer = clientX => {
@@ -66,48 +88,56 @@ const GenericLightDimmer = ({
 
     const handlePointerDown = event => {
 
-        if(!trackRef.current) return
+        if(!trackRef.current || !canSetBrightness) return
 
-        commitValue(getValueFromPointer(event.clientX))
+        const nextValue = getValueFromPointer(event.clientX)
+
+        setDragValue(nextValue)
         setDragging(true)
         event.currentTarget.setPointerCapture(event.pointerId)
     }
 
     const handlePointerMove = event => {
 
-        if(!dragging) return
+        if(!dragging || !canSetBrightness) return
 
-        commitValue(getValueFromPointer(event.clientX))
+        setDragValue(getValueFromPointer(event.clientX))
     }
 
-    const handlePointerUp = event => {
+    const handlePointerUp = async event => {
 
         if(!dragging) return
         
+        const nextValue = getValueFromPointer(event.clientX)
+
         setDragging(false)
+        setDragValue(nextValue)
         event.currentTarget.releasePointerCapture?.(event.pointerId)
+
+        await commitBrightness(nextValue)
     }
 
-    const handleKeyDown = event => {
+    const handleKeyDown = async event => {
+        if(!canSetBrightness) return
 
         if(event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
             event.preventDefault()
-            commitValue(clamp(value - 1, rangeMin, rangeMax))
+            await commitBrightness(clamp(hostValue - 1, rangeMin, rangeMax))
         }
 
         if(event.key === 'ArrowRight' || event.key === 'ArrowUp') {
             event.preventDefault()
-            commitValue(clamp(value + 1, rangeMin, rangeMax))
+            await commitBrightness(clamp(hostValue + 1, rangeMin, rangeMax))
         }
 
         if(event.key === 'Home') {
             event.preventDefault()
-            commitValue(rangeMin)
+            await commitBrightness(rangeMin)
         }
         
         if(event.key === 'End') {
             event.preventDefault()
-            commitValue(rangeMax)
+            await commitBrightness(rangeMax)
         }
     }
 
@@ -125,17 +155,23 @@ const GenericLightDimmer = ({
 
     const midValue = Math.round((rangeMin + rangeMax) / 2)
 
-    const isOn = value > 0
-
-    const handleToggle = next => {
+    const handleToggle = async next => {
 
         if(next === 'off') {
-            commitValue(rangeMin)
+            if(canSetLightState) {
+                await callTrigger('set_light_state', 'off')
+            } else if(canSetBrightness) {
+                await commitBrightness(0)
+            }
             return
         }
 
-        if(value === rangeMin) {
-            commitValue(Math.min(rangeMin + 1, rangeMax))
+        if(canSetLightState) {
+            await callTrigger('set_light_state', 'on')
+        }
+
+        if(canSetBrightness && hostValue <= 0) {
+            await callTrigger('set_brightness', 1)
         }
     }
 
@@ -165,10 +201,11 @@ const GenericLightDimmer = ({
         borderRadius: '10px',
         borderShape: 'squircle',
         background: 'linear-gradient(90deg, #646464ff 0%, #d7d7d7 100%)',
-        cursor: 'pointer',
+        cursor: canSetBrightness ? 'pointer' : 'default',
         touchAction: 'none',
         userSelect: 'none',
         outline: 'none',
+        opacity: canSetBrightness ? 1 : 0.6,
     }
 
     const fillStyle = {
@@ -190,7 +227,7 @@ const GenericLightDimmer = ({
         backgroundColor: '#ffffff',
         border: '2px solid #111827',
         transform: 'translate(-50%, -50%)',
-        cursor: dragging ? 'grabbing' : 'grab',
+        cursor: canSetBrightness ? (dragging ? 'grabbing' : 'grab') : 'default',
         boxSizing: 'border-box',
     }
 
@@ -241,11 +278,11 @@ const GenericLightDimmer = ({
                 className='txt-left'
                 role='button'
                 tabIndex={0}
-                onClick={() => handleToggle('off')}
-                onKeyDown={event => {
+                onClick={() => void handleToggle('off')}
+                onKeyDown={async event => {
                     if(event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault()
-                        handleToggle('off')
+                        await handleToggle('off')
                     }
                 }}
                 style={modeLabelStyle(!isOn, '#6b7280')}>
@@ -264,11 +301,11 @@ const GenericLightDimmer = ({
                 className='txt-right'
                 role='button'
                 tabIndex={0}
-                onClick={() => handleToggle('on')}
-                onKeyDown={event => {
+                onClick={() => void handleToggle('on')}
+                onKeyDown={async event => {
                     if(event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault()
-                        handleToggle('on')
+                        await handleToggle('on')
                     }
                 }}
                 style={modeLabelStyle(isOn, '#16a34a')}>
@@ -287,12 +324,12 @@ const GenericLightDimmer = ({
                 aria-valuemax={rangeMax}
                 aria-valuenow={value}
                 aria-valuetext={`${value}%`}
-                tabIndex={0}
+                tabIndex={canSetBrightness ? 0 : -1}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerUp}
-                onKeyDown={handleKeyDown}>
+                onPointerUp={event => void handlePointerUp(event)}
+                onPointerCancel={event => void handlePointerUp(event)}
+                onKeyDown={event => void handleKeyDown(event)}>
 
                 <div style={{ ...fillStyle, width: `${percent}%` }}></div>
                 <div style={{ ...handleStyle, left: `${percent}%` }}></div>
