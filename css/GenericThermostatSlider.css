@@ -1,0 +1,89 @@
+.generic-thermostat-slider {
+    width: 100%;
+    min-width: 300px;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    margin: 0;
+    padding: 5px 20px 25px 20px;
+}
+
+.generic-thermostat-slider__title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.generic-thermostat-slider__mode {
+    cursor: pointer;
+}
+
+.generic-thermostat-slider__value {
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.generic-thermostat-slider__track-wrap {
+    width: 100%;
+    margin: 5px 5px 15px 0;
+    padding: 0;
+}
+
+.generic-thermostat-slider__track {
+    position: relative;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #3c7cdc 0%, #d56262 100%);
+    touch-action: none;
+    user-select: none;
+    outline: none;
+}
+
+.generic-thermostat-slider__fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+.generic-thermostat-slider__handle {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 2px solid #111827;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+}
+
+.generic-thermostat-slider__ticks {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 6px;
+    height: 6px;
+    pointer-events: none;
+}
+
+.generic-thermostat-slider__tick {
+    position: absolute;
+    width: 1px;
+    height: 6px;
+    background-color: #9ca3af;
+    transform: translateX(-50%);
+}
+
+.generic-thermostat-slider__tick-label {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #6b7280;
+    white-space: nowrap;
+}

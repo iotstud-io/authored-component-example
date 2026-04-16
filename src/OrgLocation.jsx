@@ -16,48 +16,23 @@ const OrgLocation = ({settings, theme}) => {
         show_room_level = true
     }
 
-    const between_padding = size === 'small' ? 0 : size === 'medium' ? '8px' : size === 'large' ? '10px' : 0
-    const outer_padding = size === 'small' ? '8px' : size === 'medium' ? '15px' : size === 'large' ? '15px' : '10px'
-
-    const style = { 
-        width: '100%',
-        height: '100%', 
-        border: '1px solid transparent',
-        borderRadius: '10px',
-        padding: outer_padding,
+    const style = {
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
             linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
 
-    return <div style={style}>
+    return <div className={`org-location org-location--${size}`} style={style}>
 
-        <h1 style={{
-            fontSize: '30.5px', lineHeight: '30px'
-        }}>860 Washington Street</h1>
+        <h1 className='org-location__street'>860 Washington Street</h1>
 
-        <div style={{
-            paddingTop: between_padding, 
-            lineHeight: '29px', 
-            fontSize: '22px', 
-            color: theme.palette.text.secondary
-        }}>WellCube Science Lab</div>
+        <div className='org-location__line org-location__line--lab' style={{ color: theme.palette.text.secondary }}>WellCube Science Lab</div>
 
-        <div style={{
-            paddingTop: between_padding, 
-            lineHeight: '18px', 
-            fontSize: '18px', 
-            color: theme.palette.text.secondary
-        }}>4th Floor</div>
+        <div className='org-location__line' style={{ color: theme.palette.text.secondary }}>4th Floor</div>
 
         {show_room_level && 
-        <div style={{
-            paddingTop: between_padding, 
-            lineHeight: '18px', 
-            fontSize: '18px', 
-            color: theme.palette.text.secondary
-        }}>Conference Room A</div>}
+        <div className='org-location__line' style={{ color: theme.palette.text.secondary }}>Conference Room A</div>}
     </div>
 }
 

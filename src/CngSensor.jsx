@@ -1,22 +1,3 @@
-let container_style = {
-    border: '1px solid transparent',
-    borderRadius: '10px',
-    width: '100%',
-    height: '100%', 
-}
-
-let ppm_style = {
-    flexShrink: 0,
-    borderRadius: '50%',
-    width: '65px',
-    height: '65px',
-    textAlign: 'center',
-    margin: '12px 14px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    padding: '12px 0',
-}
-
 const cngState = (cng, theme) => {
 
     const value = Number(cng)
@@ -58,39 +39,37 @@ const CngSensor = ({ cng=null, title='CNG Sensor', theme }) => {
 
     const status = cngState(cng, theme)
     const instanceContainerStyle = { 
-        ...container_style,
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
             linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
     const instancePpmStyle = { 
-        ...ppm_style, 
         textShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         outline: `3px solid ${status.color}`,
         backgroundColor: theme.palette.background.paper,
     }
 
-    return <div className='flx align-center justify-center' style={instanceContainerStyle}>
+    return <div className='cng-sensor flx align-center justify-left' style={instanceContainerStyle}>
 
-        <div style={instancePpmStyle}>
+        <div className='cng-sensor__badge' style={instancePpmStyle}>
 
             {status.badge}
 
-            {status.hasValue && <div style={{fontSize: 12, color: theme.palette.text.secondary, lineHeight: '0px'}}>
+            {status.hasValue && <div className='cng-sensor__badge-unit' style={{ color: theme.palette.text.secondary }}>
                 ppm
             </div>}
         </div>
 
-        <div style={{paddingRight: '12px'}}>
+        <div className='cng-sensor__content'>
 
             <h4>{title}</h4>
 
-            <div style={{ fontWeight: 'bold', color: status.color}}>
+            <div className='cng-sensor__detail' style={{ color: status.color }}>
 
                 {status.detail}
 
-                {status.hasValue && <span style={{fontSize: 13, color: theme.palette.text.secondary}}>
+                {status.hasValue && <span className='cng-sensor__detail-unit' style={{ color: theme.palette.text.secondary }}>
                     ppm
                 </span>}
             </div>

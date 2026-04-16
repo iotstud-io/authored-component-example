@@ -1,0 +1,45 @@
+.org-location {
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+.org-location--small {
+    padding: 8px;
+}
+
+.org-location--medium,
+.org-location--large {
+    padding: 15px;
+}
+
+.org-location__street {
+    font-size: 30.5px;
+    line-height: 30px;
+}
+
+.org-location__line--lab {
+    font-size: 22px;
+    line-height: 29px;
+}
+
+.org-location__line {
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.org-location--small .org-location__line,
+.org-location--small .org-location__line--lab {
+    padding-top: 0;
+}
+
+.org-location--medium .org-location__line,
+.org-location--medium .org-location__line--lab {
+    padding-top: 8px;
+}
+
+.org-location--large .org-location__line,
+.org-location--large .org-location__line--lab {
+    padding-top: 10px;
+}

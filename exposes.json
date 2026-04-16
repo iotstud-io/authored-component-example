@@ -54,6 +54,9 @@
             "defaultExport": true,
             "description": "Generic display of a location in the org hierarchy tree.",
             "capabilities": {},
+            "css": [
+                "css/OrgLocation.css"
+            ],
             "settings": [
                 {
                     "name": "show_room_level",
@@ -85,16 +88,19 @@
             "capabilities": {
                 "cng": "optional"
             },
+            "css": [
+                "css/CngSensor.css"
+            ],
             "settings": []
         },
         {
             "name": "GenericThermostatSlider",
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Thermostat.",
-            "capabilities": {
-                "temp_celcius": "optional",
-                "temp_fahrenheit": "optional"
-            },
+            "capabilities": {},
+            "css": [
+                "css/GenericThermostatSlider.css"
+            ],
             "settings": [
                 {
                     "name": "temperature_format",
@@ -118,6 +124,9 @@
                 "light_state": "optional",
                 "set_light_state": "optional"
             },
+            "css": [
+                "css/GenericLightDimmer.css"
+            ],
             "settings": []
         },
         {
@@ -127,6 +136,9 @@
             "capabilities": {
                 "water_detected": "optional"
             },
+            "css": [
+                "css/GenericLeakDetector.css"
+            ],
             "settings": []
         }
     ]

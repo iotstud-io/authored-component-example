@@ -1,0 +1,35 @@
+.cng-sensor {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.cng-sensor__badge {
+    flex-shrink: 0;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    text-align: center;
+    margin: 12px 14px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 0;
+}
+
+.cng-sensor__badge-unit {
+    font-size: 12px;
+    line-height: 0;
+}
+
+.cng-sensor__content {
+    padding-right: 12px;
+}
+
+.cng-sensor__detail {
+    font-weight: bold;
+}
+
+.cng-sensor__detail-unit {
+    font-size: 13px;
+}

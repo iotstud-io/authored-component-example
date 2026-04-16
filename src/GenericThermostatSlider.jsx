@@ -127,106 +127,33 @@ const GenericThermostatSlider = ({
         ticks.push(tick)
     }
 
-    const root_style = { 
-        width: '100%',
-        minWidth: '300px',
-        height: '100%', 
-        border: '1px solid transparent',
-        borderRadius: '10px',
-        margin: 0,
-        padding: '5px 20px 25px 20px',
+    const rootStyle = {
         boxShadow: `2px 2px 2px ${theme.palette.background.shadow}`,
         background:
             `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box,
             linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.background.shadow}) border-box`,
     }
 
-    const containerStyle = {
-        width: '100%',
-        margin: '5px 5px 15px 0',
-        padding: '0',
-    }
-
-    const trackStyle = {
-        position: 'relative',
-        height: '40px',
-        borderRadius: '10px',
-        borderShape: 'squircle',
-        background: 'linear-gradient(90deg, #3c7cdc 0%, #d56262 100%)',
-        cursor: 'pointer',
-        touchAction: 'none',
-        userSelect: 'none',
-        outline: 'none',
-    }
-
-    const fillStyle = {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        borderRadius: '10px',
-        borderShape: 'squircle',
-        pointerEvents: 'none',
-    }
-
     const handleStyle = {
-        position: 'absolute',
-        top: '50%',
-        width: '20px',
-        height: '50px',
-        borderRadius: '4px',
-        backgroundColor: '#ffffff',
-        border: '2px solid #111827',
-        transform: 'translate(-50%, -50%)',
         cursor: dragging ? 'grabbing' : 'grab',
-        boxSizing: 'border-box',
-    }
-
-    const tickContainerStyle = {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '100%',
-        marginTop: '6px',
-        height: '6px',
-        pointerEvents: 'none',
-    }
-
-    const tickStyle = {
-        position: 'absolute',
-        width: '1px',
-        height: '6px',
-        backgroundColor: '#9ca3af',
-        transform: 'translateX(-50%)',
-    }
-
-    const tickLabelStyle = {
-        position: 'absolute',
-        top: '8px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        fontSize: '10px',
-        color: '#6b7280',
-        whiteSpace: 'nowrap',
     }
 
     const modeLabelStyle = (selected, accent) => ({
         fontSize: selected ? '20px' : '18px',
         fontWeight: selected ? 'bold' : 'normal',
         color: selected ? accent : theme.palette.text.secondary,
-        cursor: 'pointer',
     })
 
-    return <div style={root_style}>
+    return <div className='generic-thermostat-slider' style={rootStyle}>
 
-        <div className='txt-center' style={{fontWeight: 'bold', fontSize: '24px'}}>
+        <div className='generic-thermostat-slider__title txt-center'>
             {title}
         </div>
 
         <div className='flx align-center'>
 
             <div
-                className='txt-left'
+                className='generic-thermostat-slider__mode txt-left'
                 role='button'
                 tabIndex={0}
                 onClick={() => toggleMode('cool')}
@@ -240,16 +167,12 @@ const GenericThermostatSlider = ({
                 COOL
             </div>
 
-            <div className='txt-center' style={{
-                margin: '0 auto', 
-                fontWeight: 'bold', 
-                fontSize: '20px'
-            }}>
+            <div className='generic-thermostat-slider__value txt-center'>
                 75°f
             </div>
 
             <div
-                className='txt-right'
+                className='generic-thermostat-slider__mode txt-right'
                 role='button'
                 tabIndex={0}
                 onClick={() => toggleMode('heat')}
@@ -265,11 +188,12 @@ const GenericThermostatSlider = ({
 
         </div>
 
-        <div style={containerStyle}>
+        <div className='generic-thermostat-slider__track-wrap'>
 
             <div
                 ref={trackRef}
-                style={trackStyle}
+                className='generic-thermostat-slider__track'
+                style={{ cursor: 'pointer' }}
                 role='slider'
                 aria-valuemin={rangeMin}
                 aria-valuemax={rangeMax}
@@ -281,10 +205,10 @@ const GenericThermostatSlider = ({
                 onPointerCancel={handlePointerUp}
                 onKeyDown={handleKeyDown}>
 
-                <div style={{ ...fillStyle, width: `${percent}%` }}></div>
-                <div style={{ ...handleStyle, left: `${percent}%` }}></div>
+                <div className='generic-thermostat-slider__fill' style={{ width: `${percent}%` }}></div>
+                <div className='generic-thermostat-slider__handle' style={{ ...handleStyle, left: `${percent}%` }}></div>
 
-                <div style={tickContainerStyle}>
+                <div className='generic-thermostat-slider__ticks'>
 
                     {ticks.map((tick, index) => {
 
@@ -300,15 +224,16 @@ const GenericThermostatSlider = ({
 
                         return <div
                             key={tick}
-                            style={{ ...tickStyle, left: `${ratio * 100}%` }}
+                            className='generic-thermostat-slider__tick'
+                            style={{ left: `${ratio * 100}%` }}
                             data-value={tick}>
 
                             {showLabel ? (
                                 <div
+                                    className='generic-thermostat-slider__tick-label'
                                     style={{
-                                        ...tickLabelStyle,
                                         fontWeight: isCurrent ? 'bold' : 'normal',
-                                        color: isCurrent ? 'inherit' : tickLabelStyle.color,
+                                        color: isCurrent ? 'inherit' : '#6b7280',
                                     }}>
                                     {tick}
                                 </div>

@@ -1,0 +1,33 @@
+.generic-leak-detector {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    min-width: 235px;
+}
+
+.generic-leak-detector__status {
+    flex-shrink: 0;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    text-align: center;
+    margin: 12px 14px;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 14px 0;
+}
+
+.generic-leak-detector__info {
+    font-size: 18px;
+    width: fit-content;
+    padding: 0 10px 0 0;
+}
+
+.generic-leak-detector__subtitle {
+    padding-top: 5px;
+}
+
+.generic-leak-detector__detail {
+    font-weight: bold;
+}
