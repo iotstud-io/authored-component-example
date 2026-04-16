@@ -2,6 +2,29 @@
     "name": "authored-component-example",
     "components": [
         {
+            "name": "GenericTempSensor",
+            "defaultExport": true,
+            "description": "Generic temperature component for when a device does not expose the temperature unit type. Use the temperature_format setting to specify the unit type for the temperature value.",
+            "capabilities": {
+                "temperature": "required"
+            },
+            "css": [
+                "css/climate.css"
+            ],
+            "settings": [
+                {
+                    "name": "temperature_format",
+                    "label": "Temperature Format",
+                    "description": "Set the display to Celsius or Fahrenheit.",
+                    "default": "f",
+                    "options": [
+                        { "value": "c", "label": "Celsius" },
+                        { "value": "f", "label": "Fahrenheit" }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "GenericClimateSensor",
             "defaultExport": true,
             "description": "Generic temperature/humidity component.",
@@ -10,6 +33,9 @@
                 "temp_fahrenheit": "optional",
                 "humidity": "optional"
             },
+            "css": [
+                "css/climate.css"
+            ],
             "settings": [
                 {
                     "name": "temperature_format",
