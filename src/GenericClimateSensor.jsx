@@ -66,9 +66,9 @@ const GenericClimateSensor = ({
 
     return <div className='climate-card flx align-center justify-left' style={instanceContainerStyle}>
 
-        <div className='climate-card__temp' style={instanceTempStyle}>{t}</div>
+        <div className='climate-card_temp' style={instanceTempStyle}>{t}</div>
 
-        <div className='climate-card__info txt-center'>
+        <div className='climate-card_info txt-center'>
 
             <h4>{title}</h4>
 
