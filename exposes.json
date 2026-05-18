@@ -130,6 +130,18 @@
             "settings": []
         },
         {
+            "name": "GenericBatteryLife",
+            "defaultExport": true,
+            "description": "Generic display of battery life percentage for smart devices.",
+            "capabilities": {
+                "life_percent": "required"
+            },
+            "css": [
+                "css/GenericBatteryLife.css"
+            ],
+            "settings": []
+        },
+        {
             "name": "GenericLeakDetector",
             "defaultExport": true,
             "description": "Generic display of a water leak detector.",
