@@ -74,8 +74,6 @@ const GenericBatteryLife = ({
     title='Battery Life',
 }) => {
 
-    life_percent = 25
-
     const status = batteryState(life_percent, theme)
     const StatusIcon = status.Icon
     const infoStatusStyle = { color: status.color }
