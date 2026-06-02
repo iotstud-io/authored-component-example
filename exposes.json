@@ -161,7 +161,19 @@
             "css": [
                 "css/GenericToggle.css"
             ],
-            "settings": []
+            "settings": [
+                {
+                    "name": "display_icon",
+                    "label": "Display Icon",
+                    "description": "Choose what appears in the left status circle.",
+                    "default": "disabled",
+                    "options": [
+                        { "value": "disabled", "label": "Disabled" },
+                        { "value": "bolt", "label": "Bolt" },
+                        { "value": "bulb", "label": "Bulb" }
+                    ]
+                }
+            ]
         },
         {
             "name": "GenericBatteryLife",
