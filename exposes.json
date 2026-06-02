@@ -8,6 +8,9 @@
             "capabilities": {
                 "temperature": "required"
             },
+            "operationRequirements": [
+                { "capabilityKey": "temperature", "operationKey": "read", "optional": false }
+            ],
             "css": [
                 "css/climate.css"
             ],
@@ -33,6 +36,11 @@
                 "temp_fahrenheit": "optional",
                 "humidity": "optional"
             },
+            "operationRequirements": [
+                { "capabilityKey": "temp_celcius", "operationKey": "read", "optional": true },
+                { "capabilityKey": "temp_fahrenheit", "operationKey": "read", "optional": true },
+                { "capabilityKey": "humidity", "operationKey": "read", "optional": true }
+            ],
             "css": [
                 "css/climate.css"
             ],
@@ -54,6 +62,7 @@
             "defaultExport": true,
             "description": "Generic display of a location in the org hierarchy tree.",
             "capabilities": {},
+            "operationRequirements": [],
             "css": [
                 "css/OrgLocation.css"
             ],
@@ -88,6 +97,9 @@
             "capabilities": {
                 "cng": "optional"
             },
+            "operationRequirements": [
+                { "capabilityKey": "cng", "operationKey": "read", "optional": true }
+            ],
             "css": [
                 "css/CngSensor.css"
             ],
@@ -98,6 +110,7 @@
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Thermostat.",
             "capabilities": {},
+            "operationRequirements": [],
             "css": [
                 "css/GenericThermostatSlider.css"
             ],
@@ -119,13 +132,34 @@
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Light Dimmer.",
             "capabilities": {
-                "brightness_percent": "required",
-                "set_brightness": "required",
-                "light_state": "optional",
-                "set_light_state": "optional"
+                "brightness_percent": "optional",
+                "light_state": "required"
             },
+            "operationRequirements": [
+                { "capabilityKey": "light_state", "operationKey": "read", "optional": false },
+                { "capabilityKey": "brightness_percent", "operationKey": "read", "optional": true },
+                { "capabilityKey": "brightness_percent", "operationKey": "set", "optional": true },
+                { "capabilityKey": "light_state", "operationKey": "set", "optional": true },
+                { "capabilityKey": "light_state", "operationKey": "toggle", "optional": true }
+            ],
             "css": [
                 "css/GenericLightDimmer.css"
+            ],
+            "settings": []
+        },
+        {
+            "name": "GenericToggle",
+            "defaultExport": true,
+            "description": "Generic display/controller of a power switch.",
+            "capabilities": {
+                "light_state": "required"
+            },
+            "operationRequirements": [
+                { "capabilityKey": "light_state", "operationKey": "read", "optional": false },
+                { "capabilityKey": "light_state", "operationKey": "set", "optional": false }
+            ],
+            "css": [
+                "css/GenericToggle.css"
             ],
             "settings": []
         },
@@ -136,6 +170,9 @@
             "capabilities": {
                 "life_percent": "required"
             },
+            "operationRequirements": [
+                { "capabilityKey": "life_percent", "operationKey": "read", "optional": false }
+            ],
             "css": [
                 "css/GenericBatteryLife.css"
             ],
@@ -148,6 +185,9 @@
             "capabilities": {
                 "water_detected": "optional"
             },
+            "operationRequirements": [
+                { "capabilityKey": "water_detected", "operationKey": "read", "optional": true }
+            ],
             "css": [
                 "css/GenericLeakDetector.css"
             ],
