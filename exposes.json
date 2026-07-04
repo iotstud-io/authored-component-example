@@ -5,9 +5,6 @@
             "name": "GenericTempSensor",
             "defaultExport": true,
             "description": "Generic temperature component for when a device does not expose the temperature unit type. Use the temperature_format setting to specify the unit type for the temperature value.",
-            "capabilities": {
-                "temperature": "required"
-            },
             "operationRequirements": [
                 { "capabilityKey": "temperature", "operationKey": "read", "optional": false }
             ],
@@ -31,11 +28,6 @@
             "name": "GenericClimateSensor",
             "defaultExport": true,
             "description": "Generic temperature/humidity component.",
-            "capabilities": {
-                "temp_celcius": "optional",
-                "temp_fahrenheit": "optional",
-                "humidity": "optional"
-            },
             "operationRequirements": [
                 { "capabilityKey": "temp_celcius", "operationKey": "read", "optional": true },
                 { "capabilityKey": "temp_fahrenheit", "operationKey": "read", "optional": true },
@@ -61,7 +53,6 @@
             "name": "OrgLocation",
             "defaultExport": true,
             "description": "Generic display of a location in the org hierarchy tree.",
-            "capabilities": {},
             "operationRequirements": [],
             "css": [
                 "css/OrgLocation.css"
@@ -94,9 +85,6 @@
             "name": "CngSensor",
             "defaultExport": true,
             "description": "Generic display of a Compressed Natural Gas sensor.",
-            "capabilities": {
-                "cng": "optional"
-            },
             "operationRequirements": [
                 { "capabilityKey": "cng", "operationKey": "read", "optional": true }
             ],
@@ -109,7 +97,6 @@
             "name": "GenericThermostatSlider",
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Thermostat.",
-            "capabilities": {},
             "operationRequirements": [],
             "css": [
                 "css/GenericThermostatSlider.css"
@@ -131,10 +118,6 @@
             "name": "GenericLightDimmer",
             "defaultExport": true,
             "description": "Generic display/controller of a Smart Light Dimmer.",
-            "capabilities": {
-                "brightness_percent": "optional",
-                "light_state": "required"
-            },
             "operationRequirements": [
                 { "capabilityKey": "light_state", "operationKey": "read", "optional": false },
                 { "capabilityKey": "brightness_percent", "operationKey": "read", "optional": true },
@@ -151,9 +134,6 @@
             "name": "GenericToggle",
             "defaultExport": true,
             "description": "Generic display/controller of a power switch.",
-            "capabilities": {
-                "light_state": "required"
-            },
             "operationRequirements": [
                 { "capabilityKey": "light_state", "operationKey": "read", "optional": false },
                 { "capabilityKey": "light_state", "operationKey": "set", "optional": false }
@@ -179,9 +159,6 @@
             "name": "GenericBatteryLife",
             "defaultExport": true,
             "description": "Generic display of battery life percentage for smart devices.",
-            "capabilities": {
-                "life_percent": "required"
-            },
             "operationRequirements": [
                 { "capabilityKey": "life_percent", "operationKey": "read", "optional": false }
             ],
@@ -194,9 +171,6 @@
             "name": "GenericLeakDetector",
             "defaultExport": true,
             "description": "Generic display of a water leak detector.",
-            "capabilities": {
-                "water_detected": "optional"
-            },
             "operationRequirements": [
                 { "capabilityKey": "water_detected", "operationKey": "read", "optional": true }
             ],

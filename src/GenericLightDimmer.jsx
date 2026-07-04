@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { hasOperation, normalizedLightState, operationReadValue } from './Functions'
+import { hasOperation, operationReadValue } from './Functions'
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
 const min = 0
@@ -34,7 +34,7 @@ const GenericLightDimmer = ({
     const lightStateReadValue = operationReadValue(operations, 'light_state')
     const hasBrightness = hasPercentValue(brightnessReadValue)
     const brightnessValue = hasBrightness ? toPercentValue(brightnessReadValue) : 0
-    const stateValue = normalizedLightState(lightStateReadValue)
+    const stateValue = lightStateReadValue ?? ''
     const hasLightState = stateValue.length > 0
     const isOn = hasLightState ? stateValue === 'on' : hasBrightness && brightnessValue > 0
     const hostValue = hasBrightness

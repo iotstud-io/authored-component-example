@@ -1,4 +1,4 @@
-import { hasOperation, normalizedLightState, operationReadValue } from './Functions'
+import { hasOperation, operationReadValue } from './Functions'
 
 const BoltOnIcon = ({fill}) => (
     <svg className='generic-toggle__status-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960' fill={fill} aria-hidden='true'>
@@ -45,7 +45,7 @@ const GenericToggle = ({
 }) => {
 
     const lightStateReadValue = operationReadValue(operations, 'light_state')
-    const stateValue = normalizedLightState(lightStateReadValue ?? light_state)
+    const stateValue = lightStateReadValue ?? light_state ?? ''
     const isOn = stateValue === 'on'
     const canSetLightState = hasOperation(operations, 'light_state', 'set')
     const statusLabel = isOn ? 'On' : 'Off'

@@ -75,34 +75,10 @@ const hasOperation = (operations, capabilityKey, operationKey) => {
     return true
 }
 
-const normalizedLightState = value => {
-    if(typeof value === 'boolean') {
-        return value ? 'on' : 'off'
-    }
-
-    if(typeof value === 'number') {
-        return value > 0 ? 'on' : 'off'
-    }
-
-    if(typeof value === 'string') {
-        const normalized = value.toLowerCase()
-
-        if(normalized === 'true') return 'on'
-        if(normalized === 'false') return 'off'
-        if(normalized === '1') return 'on'
-        if(normalized === '0') return 'off'
-
-        return normalized
-    }
-
-    return ''
-}
-
 export {
     c_to_f,
     f_to_c,
     hasOperation,
-    normalizedLightState,
     operationReadValue,
     operationState,
     roundUpIfNeeded,
